@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'My App2';
+
+  myVariable = 'Value';
+
+  constructor(){
+
+  }
 }
