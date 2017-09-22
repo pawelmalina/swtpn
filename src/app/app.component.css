@@ -1,0 +1,13 @@
+
+.main-frame {
+
+  width: 80%;
+  border-style: groove;
+  border-width: 5px;
+  border-radius: 15px;
+  /*border-color: #15ffc9;*/
+}
+
+.active-link-my{
+  background-color: #a572f5;
+}
