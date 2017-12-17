@@ -1,0 +1,13 @@
+.bg-gray {
+  background-color: #eeeeee;
+}
+
+.dataGridContentRow {
+  white-space: pre-line !important;
+}
+
+.newComment {
+  resize: none;
+  width: 100%;
+  height: 150px;
+}

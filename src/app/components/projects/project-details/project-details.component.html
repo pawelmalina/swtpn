@@ -1,0 +1,61 @@
+<p>
+  project-details works!
+</p>
+<h2>{{project?.title}}</h2>
+<div class="ui-g">
+  <div class="ui-g-7">
+    <p-panel header="{{project?.name}}" [toggleable]="true" [collapsed]="true">
+      {{project?.description}}
+    </p-panel>
+
+    <div>
+      <p-dataList [value]="messages" [immutable]="false" [scrollable]="true" scrollHeight="250px">
+        <p-header>Komentarze</p-header>
+        <ng-template let-message let-i="index" pTemplate="item">
+          <div [ngClass]="{'bg-gray': i % 2 === 0}" >
+            <div class="ui-g ui-fluid ">
+              <div class="ui-g-6">
+                <h6>{{message.userName}}</h6>
+              </div>
+              <div class="ui-g-6">
+                <h6 class="float-right">{{message.date | date: dateFormat}}</h6>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12">
+                <pre class="dataGridContentRow">{{message.content}}</pre>
+                <!--<span class="display:inline-block;">{{message.content}}</span>-->
+                <!--<textarea class="dataGridContentRow" [rows]="2" [cols]="30" pInputTextarea autoResize="autoResize">{{message.content}}</textarea>-->
+                <!--<textarea readonly class="dataGridContentRow">{{message.content}}</textarea>-->
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-dataList>
+    </div>
+    <div class="commentary-field">
+      <textarea class="newComment" pInputTextarea width="100%" [(ngModel)]="newCommentText" ></textarea>
+      <button class="float-right ui-button-secondary" (click)="addComment()" pButton type="button" label="Dodaj komentarz"></button>
+    </div>
+  </div>
+
+  <div class="ui-g-5">
+    <p-tabView>
+      <p-tabPanel header="Zadania">
+
+      </p-tabPanel>
+      <p-tabPanel header="Dokumenty">
+        Content 2
+      </p-tabPanel>
+      <p-tabPanel header="Użytkownicy" [selected]="true">
+        <div *ngFor="let userNameAndId of project?.users">
+          <h3>{{userNameAndId.name}}</h3>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+</div>
+
+
+
