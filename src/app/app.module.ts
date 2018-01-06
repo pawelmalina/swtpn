@@ -9,7 +9,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {PublicationsComponent} from './components/publications/publications.component';
 import {ProjectsComponent} from './components/projects/projects.component';
-import {FilesComponent} from './components/files/files.component';
+import {FilesComponent} from './components/documents/documents.component';
 import {TasksComponent} from './components/tasks/tasks.component';
 import {PublicationService} from './services/publication/publication.service';
 import {UserService} from './services/user/user.service';
@@ -27,9 +27,8 @@ import {ButtonModule} from 'primeng/primeng';
 import {InputTextareaModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FileUploadModule} from 'primeng/primeng';
-import {AddFileComponent} from './components/files/add-file/add-file.component';
-import {FileDetailsComponent} from './components/files/file-details/file-details.component';
 import {FileService} from './services/file/file.service';
+import {DocumentDetailsComponent} from './components/documents/document-details/document-details.component';
 
 
 @NgModule({
@@ -42,8 +41,7 @@ import {FileService} from './services/file/file.service';
     PublicationsListComponent,
     ProjectsListComponent,
     ProjectDetailsComponent,
-    AddFileComponent,
-    FileDetailsComponent
+    DocumentDetailsComponent
   ],
   imports: [
     BrowserModule,
