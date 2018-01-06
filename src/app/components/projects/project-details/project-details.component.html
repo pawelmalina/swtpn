@@ -46,7 +46,7 @@
           <!--<h3>{{userNameAndId.name}}</h3>-->
         <!--</div>-->
         <li class="list-group-item" *ngFor="let document of project?.documents">
-          <a href="/document-details/{{document.id}}">{{document.name}}</a>
+          <a href="/file-details/{{document.id}}">{{document.name}}</a>
         </li>
       </p-tabPanel>
       <p-tabPanel header="Użytkownicy" [selected]="true">
