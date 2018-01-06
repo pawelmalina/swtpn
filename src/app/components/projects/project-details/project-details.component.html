@@ -42,7 +42,12 @@
 
       </p-tabPanel>
       <p-tabPanel header="Dokumenty">
-        Content 2
+        <!--<div *ngFor="let userNameAndId of project?.documents">-->
+          <!--<h3>{{userNameAndId.name}}</h3>-->
+        <!--</div>-->
+        <li class="list-group-item" *ngFor="let document of project?.documents">
+          <a href="/document-details/{{document.id}}">{{document.name}}</a>
+        </li>
       </p-tabPanel>
       <p-tabPanel header="Użytkownicy" [selected]="true">
         <div *ngFor="let userNameAndId of project?.users">

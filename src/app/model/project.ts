@@ -5,6 +5,7 @@ export class Project {
   description: string;
   tasks: object[];
   users: NamesAndIds[];
+  documents: NamesAndIds[];
   messages: Message[];
 }
 
