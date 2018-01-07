@@ -9,6 +9,18 @@ export class Project {
   messages: Message[];
 }
 
+export class Document {
+  id: number;
+  title: string;
+  description: string;
+  blocked: boolean;
+  creationDate: number;
+  blockedFromDate: number;
+  blockedToDate: number;
+  createdBy: string;
+  blockedBy: string;
+}
+
 export class ProjectsNames {
   id: number;
   name: string;

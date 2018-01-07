@@ -27,8 +27,9 @@ import {ButtonModule} from 'primeng/primeng';
 import {InputTextareaModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FileUploadModule} from 'primeng/primeng';
-import {FileService} from './services/file/file.service';
 import {DocumentDetailsComponent} from './components/documents/document-details/document-details.component';
+import {DocumentService} from './services/document/document.service';
+import {FileUploadComponent} from './components/upload/file-upload.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {DocumentDetailsComponent} from './components/documents/document-details/
     PublicationsListComponent,
     ProjectsListComponent,
     ProjectDetailsComponent,
-    DocumentDetailsComponent
+    DocumentDetailsComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,9 +67,10 @@ import {DocumentDetailsComponent} from './components/documents/document-details/
     UserService,
     PublicationService,
     ProjectService,
-    FileService,
+    DocumentService,
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
