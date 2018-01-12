@@ -19,6 +19,15 @@ export class Document {
   blockedToDate: number;
   createdBy: string;
   blockedBy: string;
+
+  currentVersion: UploadedFile;
+  historicalFiles: UploadedFile[];
+}
+
+export class UploadedFile {
+  id: number;
+  uploadedDate: number;
+  uploadedBy: NamesAndIds;
 }
 
 export class ProjectsNames {

@@ -29,7 +29,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FileUploadModule} from 'primeng/primeng';
 import {DocumentDetailsComponent} from './components/documents/document-details/document-details.component';
 import {DocumentService} from './services/document/document.service';
-import {FileUploadComponent} from './components/upload/file-upload.component';
+import {CalendarModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -43,7 +43,6 @@ import {FileUploadComponent} from './components/upload/file-upload.component';
     ProjectsListComponent,
     ProjectDetailsComponent,
     DocumentDetailsComponent,
-    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +61,9 @@ import {FileUploadComponent} from './components/upload/file-upload.component';
     InputTextareaModule,
     FileUploadModule,
     BrowserAnimationsModule,
+    ButtonModule,
+    CalendarModule,
+
   ],
   providers: [
     UserService,

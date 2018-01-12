@@ -7,5 +7,6 @@ export class EndPointsSettings {
   static PROJECT = EndPointsSettings.PREFIX + 'project';
   static DOCUMENT = EndPointsSettings.PREFIX + 'document';
   static UPLOAD = EndPointsSettings.PREFIX + 'document/upload';
+  static DOWNLOAD = EndPointsSettings.PREFIX + 'document/download/';
   // static PROJECT = EndPointsSettings.PREFIX + 'projectsData';
 }

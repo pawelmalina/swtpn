@@ -12,7 +12,7 @@ import {Constants} from '../../../model/constants';
 })
 export class ProjectDetailsComponent implements OnInit {
 
-  dateFormat: string = Constants.DATE_FORMAT;
+  dateFormat: string = Constants.MESSAGE_DATE_FORMAT;
 
   project: Project;
   messages: Message[];
