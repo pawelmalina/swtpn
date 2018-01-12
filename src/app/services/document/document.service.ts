@@ -36,7 +36,7 @@ export class DocumentService {
   lock(documentId: number, lockToDate: Date) {
     const url = `${this.apiUrl}/lock`;
     const params: HttpParams = new HttpParams().set('documentId', documentId.toString())
-      .set('toDate', lockToDate.getMilliseconds().toString());
+      .set('toDate', lockToDate.getTime().toString());
     return this.http.post(url, null, {params: params})
       .toPromise()
       .catch(this.handleError);
