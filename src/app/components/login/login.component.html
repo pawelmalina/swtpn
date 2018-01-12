@@ -1,0 +1,7 @@
+<div #loginForm>
+  Username: <input type="text" pInputText [(ngModel)]="email"/>
+
+  Password: <input type="password" pInputText  [(ngModel)]="password"/>
+  <button pButton type="button" (click)="login()" label="log in"></button>
+</div>
+<p-growl [value]="msgs"></p-growl>

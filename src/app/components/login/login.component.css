@@ -1,0 +1,10 @@
+
+.ui-button{
+  width: 100px;
+}
+
+.ui-inputtext {
+  padding: 0 !important;
+  width: 100px;
+  height: 20px;
+}

@@ -20,16 +20,21 @@ import {ProjectService} from './services/project/project.service';
 import {PublicationsListComponent} from './components/publications/publications-list/publications-list.component';
 import {ProjectsListComponent} from './components/projects/projects-list/projects-list.component';
 import {ProjectDetailsComponent} from './components/projects/project-details/project-details.component';
-import {PanelModule} from 'primeng/primeng';
-import {TabViewModule} from 'primeng/primeng';
-import {DataListModule} from 'primeng/primeng';
-import {ButtonModule} from 'primeng/primeng';
-import {InputTextareaModule} from 'primeng/primeng';
+import {
+  ButtonModule,
+  CalendarModule,
+  DataListModule,
+  FileUploadModule, GrowlModule,
+  InputTextareaModule,
+  InputTextModule,
+  PanelModule,
+  TabViewModule
+} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FileUploadModule} from 'primeng/primeng';
 import {DocumentDetailsComponent} from './components/documents/document-details/document-details.component';
 import {DocumentService} from './services/document/document.service';
-import {CalendarModule} from 'primeng/primeng';
+import {LoginComponent} from './components/login/login.component';
+import {AuthService} from './services/auth/auth.service';
 
 
 @NgModule({
@@ -43,6 +48,7 @@ import {CalendarModule} from 'primeng/primeng';
     ProjectsListComponent,
     ProjectDetailsComponent,
     DocumentDetailsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,13 +69,15 @@ import {CalendarModule} from 'primeng/primeng';
     BrowserAnimationsModule,
     ButtonModule,
     CalendarModule,
-
+    InputTextModule,
+    GrowlModule,
   ],
   providers: [
     UserService,
     PublicationService,
     ProjectService,
     DocumentService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

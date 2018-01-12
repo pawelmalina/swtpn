@@ -21,7 +21,6 @@ export class ProjectService {
     return this.http.get(this.apiUrl)
       .toPromise()
       .then(response => response as Response)
-      // .then(res => res.embedded as Project[])
       .catch(this.handleError);
   }
 
