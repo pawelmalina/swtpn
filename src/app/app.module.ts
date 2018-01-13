@@ -13,7 +13,7 @@ import {FilesComponent} from './components/documents/documents.component';
 import {TasksComponent} from './components/tasks/tasks.component';
 import {PublicationService} from './services/publication/publication.service';
 import {UserService} from './services/user/user.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {ProjectService} from './services/project/project.service';
@@ -35,6 +35,7 @@ import {DocumentDetailsComponent} from './components/documents/document-details/
 import {DocumentService} from './services/document/document.service';
 import {LoginComponent} from './components/login/login.component';
 import {AuthService} from './services/auth/auth.service';
+import {AddInterceptor} from './shared/add-Interceptor';
 
 
 @NgModule({
@@ -73,6 +74,11 @@ import {AuthService} from './services/auth/auth.service';
     GrowlModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddInterceptor,
+      multi: true,
+    },
     UserService,
     PublicationService,
     ProjectService,

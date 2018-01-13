@@ -1,10 +1,15 @@
 export class User {
   id: number;
-  first_name: string;
-  last_Name: string;
-  phone: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
   email: string;
-  password: string;
+  role: Role;
+}
+
+export enum Role {
+  USER,
+  MENAGER
 }
 
 export class LoginUser {

@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'publications', component: PublicationsComponent},
   {path: 'projects', component: ProjectsComponent},
   {path: 'tasks', component: TasksComponent},
-  {path: 'files', component: FilesComponent},
+  {path: 'documents', component: FilesComponent},
   {path: 'project-details/:id', component: ProjectDetailsComponent},
   {path: 'document-details/:id', component: DocumentDetailsComponent},
   {path: '**', redirectTo: '/publications'}

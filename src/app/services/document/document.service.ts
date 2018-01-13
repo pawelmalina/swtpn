@@ -19,7 +19,6 @@ export class DocumentService {
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        console.log(response);
         return response as Document;
       })
       .catch(this.handleError);
