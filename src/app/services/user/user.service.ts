@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {User} from '../../model/user';
+import {NameAndId, User} from '../../model/user';
 import 'rxjs/add/operator/toPromise';
 import {Http} from '@angular/http';
 import {EndPointsSettings} from '../../shared/end-points-settings';
@@ -12,12 +12,27 @@ import {Observable} from 'rxjs';
 export class UserService {
 
   private userUrl = EndPointsSettings.USER;
-
   private users: User[];
 
   constructor(private http: HttpClient) {
 
   }
+
+  notAssignedUsers(projectId: number) {
+    const url = `${this.userUrl}/users-not-assigned-to-project/${projectId}`;
+
+    return this.http.get(url)
+      .toPromise()
+      .then(response => {
+        return response as NameAndId[];
+      });
+  }
+
+  checkUserIsProjectManager(projectId: number){
+    const url = `${this.userUrl}/user-is-manager-of-that-project/${projectId}`;
+    return this.http.get(url).toPromise();
+  }
+
 
   getAll(): Promise<any> {
     return this.http.get(this.userUrl)

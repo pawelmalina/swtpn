@@ -14,20 +14,18 @@ export class UserRoleGuard implements CanActivate {
               private router: Router) {
   }
 
-  // canActivate() {
-  //   return this.authService.isLogged;
-  // }
-
   canActivate() {
-    return this.authService.isUserLogged();
+    const promise = new Promise((resolve) => {
+      this.authService.isUserLogged().then((res) => {
+        if (res) {
+          resolve(true);
+        } else {
+          resolve(false);
+          this.router.navigate(['/']);
+        }
+      });
+    });
+    return promise;
   }
-
-  // canActivate(): Observable<boolean> {
-  //   return this.auth..map(authState => {
-  //     if (!authState) this.router.navigate(['/login']);
-  //     console.log('activate?', !!authState);
-  //     return !!authState;
-  //   }).take(1)
-  // }
 
 }

@@ -12,7 +12,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
 })
 export class LoginComponent implements OnInit {
 
-  public email: string = 'mariankozaczek@example.com';
+  public email: string = 'alannowak@example.com';
   public password: string = 'pass';
   public msgs: Message[] = [];
 
@@ -35,13 +35,13 @@ export class LoginComponent implements OnInit {
     this.state.login(loginUser)
       .then((res) => {
         let sm = res as Promise<boolean>
-        debugger;
-        if (this.state.isLogged) {
-          debugger;
-          this.messageService.add({severity: 'success', summary: 'Service Message', detail: 'Via MessageService'});
+        if (sm) {
+          this.messageService.add({severity: 'success', summary: 'Logowanie', detail: 'Operacja powiodła sie'});
+        } else {
+          this.messageService.add({severity: 'error', summary: 'Logowanie', detail: 'Niepoprawny email lub hasło'});
         }
+        this.clearLoginUserFields();
       });
-    this.messageService.add({severity: 'primary', summary: 'Service Message', detail: 'Via MessageService'});
   }
 
   logout() {

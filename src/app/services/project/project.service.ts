@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable()
 export class ProjectService {
@@ -14,7 +15,8 @@ export class ProjectService {
 
   private projects: Project[];
 
-  constructor(private http: HttpClient) {
+  constructor(private state: AuthService,
+              private http: HttpClient) {
   }
 
   getAll(): Promise<any> {
@@ -25,11 +27,18 @@ export class ProjectService {
   }
 
   getProjectNames(): Promise<any> {
-    return this.http.get(this.apiUrl + '/all-names')
+    const id = this.state.user.id;
+    return this.http.get(this.apiUrl + '/where-user-is/' + id)
       .toPromise()
       .then(response => response as ProjectsNames[])
-      // .then(res => res.embedded as Project[])
       .catch(this.handleError);
+  }
+
+  addUsersToProject(projectId: number, usersIds: number[]) {
+    const url = `${this.apiUrl}/add-users-to-project/${projectId}`;
+
+    return this.http.post(url, usersIds)
+      .toPromise();
   }
 
 

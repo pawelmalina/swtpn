@@ -1,4 +1,4 @@
-<h2>{{project?.title}}</h2>
+<div class="d-inline-block w-100 p-3"><span class="h2">{{project?.title}}</span><span class="h3 float-right">Kierownikiem projektu jest {{project?.projectMenager.name}}</span></div>
 <div class="ui-g">
   <div class="ui-g-7">
     <p-panel header="{{project?.name}}" [toggleable]="true" [collapsed]="true">
@@ -47,10 +47,28 @@
         <div *ngFor="let userNameAndId of project?.users">
           <h3>{{userNameAndId.name}}</h3>
         </div>
+
+        <button type="text" (click)="showSB()" pButton icon="fa-user-plus" *ngIf="isManager" label="Dodaj użytkowników"></button>
       </p-tabPanel>
     </p-tabView>
   </div>
 
+  <p-sidebar [(visible)]="displaySidebar">
+    <span class="h5">Proszę wybrać użytkowników</span>
+    <li class="list-group-item" *ngFor="let user of notAssignedUsers">
+      <p-checkbox name="groupname" value="{{user.id}}" label="{{user.name}}" [(ngModel)]="selectedUsers"></p-checkbox>
+    </li>
+
+    <div class="d-inline-block">
+      <button class="ui-button-success"
+              type="button" pButton type="button"
+              icon="fa-check" iconPos="left"
+              label="Ok" (click)="acceptSB()"></button>
+      <button class="ui-button-danger" type="button"
+              pButton type="button" icon="fa-times"
+              iconPos="left" label="Cofnij" (click)="closeSB()"></button>
+    </div>
+  </p-sidebar>
 </div>
 
 

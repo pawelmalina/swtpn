@@ -15,8 +15,6 @@ export class ProjectsListComponent implements OnInit {
 
     projectService.getProjectNames().then((resp) => {
       this.projectsNames = resp;
-      // console.log('resp' , resp);
-      // console.log('some' , this.projectsNames);
     });
   }
 

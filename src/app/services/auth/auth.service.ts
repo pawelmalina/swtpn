@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EndPointsSettings} from '../../shared/end-points-settings';
 import {RequestOptions} from '@angular/http';
 import {Router, RouterState} from '@angular/router';
+import {reject} from 'q';
 
 @Injectable()
 export class AuthService {
@@ -31,12 +32,18 @@ export class AuthService {
   login(loginUser: LoginUser): Promise<any> {
     const url = `${this.apiUrl}/login`;
 
-    return this.http.post(url, loginUser)
-      .toPromise()
-      .then((res) => {
-        this.check();
-      })
-      .catch(this.handleError);
+    let promise = new Promise((resolve) => {
+      this.http.post(url, loginUser)
+        .toPromise()
+        .then(res => {
+          if (res === 'OK') {
+            this.check();
+            resolve(true);
+          }
+          resolve(false);
+        });
+    });
+    return promise;
   }
 
   logout() {

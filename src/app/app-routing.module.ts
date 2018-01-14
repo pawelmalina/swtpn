@@ -14,8 +14,8 @@ const routes: Routes = [
   {path: 'projects', component: ProjectsComponent, canActivate: [UserRoleGuard]},
   {path: 'tasks', component: TasksComponent, canActivate: [UserRoleGuard]},
   {path: 'documents', component: FilesComponent, canActivate: [UserRoleGuard]},
-  {path: 'project-details/:id', component: ProjectDetailsComponent},
-  {path: 'document-details/:id', component: DocumentDetailsComponent},
+  {path: 'project-details/:id', component: ProjectDetailsComponent, canActivate: [UserRoleGuard]},
+  {path: 'document-details/:id', component: DocumentDetailsComponent, canActivate: [UserRoleGuard]},
   {path: '**', redirectTo: '/publications'}
 ];
 

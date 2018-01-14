@@ -3,7 +3,7 @@ export class EndPointsSettings {
   static PREFIX = 'http://localhost:8080/';
   //static END_POINT_PREFIX = 'http://localhost:3333/api/';
   // static USER = EndPointsSettings.PREFIX + 'usersData';
-  static USER = EndPointsSettings.PREFIX + 'users';
+  static USER = EndPointsSettings.PREFIX + 'user';
   static LOGIN = EndPointsSettings.PREFIX + 'auth';
   static PROJECT = EndPointsSettings.PREFIX + 'project';
   static DOCUMENT = EndPointsSettings.PREFIX + 'document';

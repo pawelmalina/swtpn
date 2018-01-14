@@ -22,12 +22,12 @@ import {ProjectsListComponent} from './components/projects/projects-list/project
 import {ProjectDetailsComponent} from './components/projects/project-details/project-details.component';
 import {
   ButtonModule,
-  CalendarModule,
+  CalendarModule, CheckboxModule,
   DataListModule,
   FileUploadModule, GrowlModule,
   InputTextareaModule,
   InputTextModule, MessageModule,
-  PanelModule,
+  PanelModule, SidebarModule,
   TabViewModule
 } from 'primeng/primeng';
 import {MessageService} from 'primeng/components/common/messageservice';
@@ -75,7 +75,9 @@ import {MenagerRoleGuard} from './shared/menager-role-guard';
     CalendarModule,
     InputTextModule,
     GrowlModule,
-    MessageModule
+    MessageModule,
+    SidebarModule,
+    CheckboxModule,
   ],
   providers: [
     {

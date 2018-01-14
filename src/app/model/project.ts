@@ -4,8 +4,9 @@ export class Project {
   name: string;
   description: string;
   tasks: object[];
-  users: NamesAndIds[];
-  documents: NamesAndIds[];
+  projectMenager: NameAndId;
+  users: NameAndId[];
+  documents: NameAndId[];
   messages: Message[];
 }
 
@@ -27,7 +28,7 @@ export class Document {
 export class UploadedFile {
   id: number;
   uploadedDate: number;
-  uploadedBy: NamesAndIds;
+  uploadedBy: NameAndId;
 }
 
 export class ProjectsNames {
@@ -35,7 +36,7 @@ export class ProjectsNames {
   name: string;
 }
 
-export class NamesAndIds {
+export class NameAndId {
   id: number;
   name: string;
 }
