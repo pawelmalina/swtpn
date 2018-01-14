@@ -1,11 +1,11 @@
-<div #nologForm *ngIf="!isLoggedUser">
+<div #nologForm *ngIf="!state.isLogged">
   Username: <input type="text" pInputText [(ngModel)]="email"/>
 
   Password: <input type="password" pInputText  [(ngModel)]="password"/>
   <button pButton type="button" (click)="login()" label="log in"></button>
 </div>
-<div #logForm *ngIf="isLoggedUser">
-  Zalogowany: {{currentUser?.firstName + " " + currentUser?.lastName}}
+<div #logForm *ngIf="state.isLogged">
+  Zalogowany: {{state.user?.firstName + " " + state.user?.lastName}}
 
   <button pButton type="button" (click)="logout()" label="log out"></button>
 </div>

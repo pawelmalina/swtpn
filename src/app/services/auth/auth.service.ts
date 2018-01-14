@@ -1,59 +1,69 @@
 import {Injectable} from '@angular/core';
-import {LoginUser, User} from '../../model/user';
+import {LoginUser, Role, User} from '../../model/user';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EndPointsSettings} from '../../shared/end-points-settings';
 import {RequestOptions} from '@angular/http';
+import {Router, RouterState} from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-  private currentUser: User;
-  private isLogged: boolean = false;
+  user: User;
+  isLogged: boolean = false;
+  isManager: boolean = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private router: Router) {
+
+    this.check();
+  }
+
+  private check() {
+    this.isUserLogged().then((res) => {
+      if (res != null) {
+        this.loadUser();
+      }
+    });
   }
 
   apiUrl: string = EndPointsSettings.LOGIN;
 
-  login(loginUser: LoginUser) {
+  login(loginUser: LoginUser): Promise<any> {
     const url = `${this.apiUrl}/login`;
 
     return this.http.post(url, loginUser)
       .toPromise()
+      .then((res) => {
+        this.check();
+      })
       .catch(this.handleError);
   }
 
   logout() {
     this.isLogged = false;
-    this.currentUser = null;
+    this.user = null;
     const url = `${this.apiUrl}/logout`;
-    return this.http.post(url, null).toPromise();
+    this.http.post(url, null).toPromise();
+    this.router.navigate(['/']);
   }
 
   isUserLogged() {
-    if (this.isLogged === true) {
-      return Promise.resolve(true);
-    }
-
     const url = `${this.apiUrl}/check`;
-
     return this.http.get(url)
-      .toPromise()
-      .catch(this.handleError);
+      .toPromise();
   }
 
-  getLoggedUser(): Promise<any> {
-    if (this.currentUser != null) {
-      return Promise.resolve(this.currentUser);
-    }
+  loadUser() {
     const url = `${this.apiUrl}/logged-user`;
 
-    return this.http.get(url)
+    this.http.get(url)
       .toPromise()
       .then(response => {
-        const user = response as User;
-        this.currentUser = user;
-        return user;
+        this.user = response as User;
+        this.isLogged = true;
+        if (this.user.role === Role.MENAGER) {
+          this.isManager = true;
+        }
       }).catch(this.handleError);
   }
 

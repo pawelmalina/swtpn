@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
-import {UserService} from './services/user/user.service';
-import {User} from './model/user';
-import {BehaviorSubject} from 'rxjs';
-import {ProjectService} from './services/project/project.service';
+import {AuthService} from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +8,10 @@ import {ProjectService} from './services/project/project.service';
 
 })
 export class AppComponent {
-  title = 'My App2';
-  some: User[];
 
-  user: User = new User();
+  public state: AuthService;
 
-  constructor(private userService: UserService,
-              private projectService: ProjectService) {
-
+  constructor(authService: AuthService) {
+    this.state = authService;
   }
 }

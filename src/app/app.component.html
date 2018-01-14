@@ -1,18 +1,14 @@
-<nav style="" class="nav nav-pills navbar-light bg-light">
+<nav style="" class="nav nav-pills navbar-light bg-light" #zm>
   <a routerLink="publications"  class="nav-item nav-link">Publikacje</a>
-  <a routerLink="projects"  class="nav-item nav-link">Projekty</a>
-  <a routerLink="tasks"  class="nav-item nav-link">Zadania</a>
-  <a routerLink="documents"  class="nav-item nav-link float-right">Dokumenty</a>
+  <a [ngClass]="{disabled:!state?.isLogged}" routerLink="projects"  class="nav-item nav-link">Projekty</a>
+  <a [ngClass]="{disabled:!state?.isLogged}" routerLink="tasks"  class="nav-item nav-link">Zadania</a>
+  <a [ngClass]="{disabled:!state?.isLogged}" routerLink="documents"  class="nav-item nav-link float-right">Dokumenty</a>
 
-  <app-login></app-login>
+  <app-login ></app-login>
 </nav>
-
-
-
 
 <div class="main-frame"  >
   <router-outlet>
-
   </router-outlet>
 </div>
 

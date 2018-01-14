@@ -12,3 +12,7 @@
   background-color: #a572f5;
 }
 
+.disabled {
+  disabled: true;
+}
+

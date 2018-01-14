@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {Message} from 'primeng/primeng';
 import {AuthService} from '../../services/auth/auth.service';
 import {LoginUser, User} from '../../model/user';
 import {sha256} from 'js-sha256';
+import {MessageService} from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-login',
@@ -15,22 +16,15 @@ export class LoginComponent implements OnInit {
   public password: string = 'pass';
   public msgs: Message[] = [];
 
-  currentUser: User;
-  isLoggedUser: boolean = false;
+  state: AuthService;
 
-  constructor(private authService: AuthService) {
-    this.checkLoggedUser();
+  constructor(private messageService: MessageService,
+              authService: AuthService) {
+    this.state = authService;
   }
 
   ngOnInit() {
-  }
 
-  checkLoggedUser() {
-    this.authService.isUserLogged().then((res) => {
-      if (res) {
-        this.getLoggedUser();
-      }
-    });
   }
 
   login() {
@@ -38,36 +32,25 @@ export class LoginComponent implements OnInit {
     loginUser.email = this.email;
     loginUser.password = sha256(this.password);
 
-    this.authService.login(loginUser)
-      .then(() => {
-        this.checkLoggedUser();
+    this.state.login(loginUser)
+      .then((res) => {
+        let sm = res as Promise<boolean>
+        debugger;
+        if (this.state.isLogged) {
+          debugger;
+          this.messageService.add({severity: 'success', summary: 'Service Message', detail: 'Via MessageService'});
+        }
       });
-
+    this.messageService.add({severity: 'primary', summary: 'Service Message', detail: 'Via MessageService'});
   }
 
   logout() {
-    this.authService.logout().then(() => {
-      this.clearUser();
-    });
-  }
-
-  getLoggedUser() {
-    this.authService.getLoggedUser()
-      .then((user) => {
-        // this.clearLoginUserFields(); //todo after develop remove comments
-        this.currentUser = user;
-        this.isLoggedUser = true;
-      });
+    this.state.logout();
   }
 
   clearLoginUserFields() {
     this.email = '';
     this.password = '';
-  }
-
-  clearUser() {
-    this.currentUser = null;
-    this.isLoggedUser = false;
   }
 
 }

@@ -26,16 +26,19 @@ import {
   DataListModule,
   FileUploadModule, GrowlModule,
   InputTextareaModule,
-  InputTextModule,
+  InputTextModule, MessageModule,
   PanelModule,
   TabViewModule
 } from 'primeng/primeng';
+import {MessageService} from 'primeng/components/common/messageservice';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DocumentDetailsComponent} from './components/documents/document-details/document-details.component';
 import {DocumentService} from './services/document/document.service';
 import {LoginComponent} from './components/login/login.component';
 import {AuthService} from './services/auth/auth.service';
 import {AddInterceptor} from './shared/add-Interceptor';
+import {UserRoleGuard} from './shared/user-role-guard';
+import {MenagerRoleGuard} from './shared/menager-role-guard';
 
 
 @NgModule({
@@ -72,6 +75,7 @@ import {AddInterceptor} from './shared/add-Interceptor';
     CalendarModule,
     InputTextModule,
     GrowlModule,
+    MessageModule
   ],
   providers: [
     {
@@ -84,6 +88,9 @@ import {AddInterceptor} from './shared/add-Interceptor';
     ProjectService,
     DocumentService,
     AuthService,
+    UserRoleGuard,
+    MenagerRoleGuard,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
