@@ -44,8 +44,9 @@
         </li>
       </p-tabPanel>
       <p-tabPanel header="Użytkownicy" [selected]="true">
-        <div *ngFor="let userNameAndId of project?.users">
-          <h3>{{userNameAndId.name}}</h3>
+        <div *ngFor="let user of project?.users">
+          <h3>{{user.name}}
+            <app-mail [mail]="user.mail"></app-mail></h3>
         </div>
 
         <button type="text" (click)="showSB()" pButton icon="fa-user-plus" *ngIf="isManager" label="Dodaj użytkowników"></button>

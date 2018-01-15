@@ -1,0 +1,20 @@
+<i class="fa fa-envelope text-info float-right" (click)="openMD()" aria-hidden="true"></i>
+
+<p-dialog [(visible)]="displayDialog" [closable]="false" [showHeader]="false" >
+
+  <div class="container">
+    <form >
+      <label for="fname">Widaomość do:</label>
+      <input disabled="true" type="text" id="fname" value="{{mail}}" name="firstname" >
+
+      <label for="subject">Temat:</label>
+      <input class="form-control" type="text" [(ngModel)]="subject" id="subject" name="subject" placeholder="Temat..." required>
+
+      <label for="content">Zawartość:</label>
+      <textarea id="content" name="content" [(ngModel)]="content" placeholder="Zawartosć wiadomości..." style="height:200px" required></textarea>
+
+      <input type="submit" (click)="sendMail()" value="Wyślij">
+      <input type="submit" (click)="closeMD()" style="background-color: darkred" value="Zamknij">
+    </form>
+  </div>
+</p-dialog>

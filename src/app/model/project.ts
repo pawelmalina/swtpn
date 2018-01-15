@@ -5,7 +5,7 @@ export class Project {
   description: string;
   tasks: object[];
   projectMenager: NameAndId;
-  users: NameAndId[];
+  users: UserWithEmail[];
   documents: NameAndId[];
   messages: Message[];
 }
@@ -39,6 +39,12 @@ export class ProjectsNames {
 export class NameAndId {
   id: number;
   name: string;
+}
+
+export class UserWithEmail {
+  id: number;
+  name: string;
+  mail: string;
 }
 
 export class Message {

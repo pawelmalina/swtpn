@@ -23,7 +23,7 @@ import {ProjectDetailsComponent} from './components/projects/project-details/pro
 import {
   ButtonModule,
   CalendarModule, CheckboxModule,
-  DataListModule,
+  DataListModule, DialogModule,
   FileUploadModule, GrowlModule,
   InputTextareaModule,
   InputTextModule, MessageModule,
@@ -39,6 +39,8 @@ import {AuthService} from './services/auth/auth.service';
 import {AddInterceptor} from './shared/add-Interceptor';
 import {UserRoleGuard} from './shared/user-role-guard';
 import {MenagerRoleGuard} from './shared/menager-role-guard';
+import { MailComponent } from './components/mail/mail.component';
+import {MailService} from './services/mail/mail.service';
 
 
 @NgModule({
@@ -53,6 +55,7 @@ import {MenagerRoleGuard} from './shared/menager-role-guard';
     ProjectDetailsComponent,
     DocumentDetailsComponent,
     LoginComponent,
+    MailComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +81,7 @@ import {MenagerRoleGuard} from './shared/menager-role-guard';
     MessageModule,
     SidebarModule,
     CheckboxModule,
+    DialogModule,
   ],
   providers: [
     {
@@ -90,6 +94,7 @@ import {MenagerRoleGuard} from './shared/menager-role-guard';
     ProjectService,
     DocumentService,
     AuthService,
+    MailService,
     UserRoleGuard,
     MenagerRoleGuard,
     MessageService

@@ -22,3 +22,9 @@ export class NameAndId {
   name: string;
 }
 
+export class Mail {
+  to: string;
+  subject: string;
+  text: string;
+}
+
