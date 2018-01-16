@@ -11,12 +11,13 @@
   </div>
   <div class="ui-g-7">
     <div>
-      <div>
+      <div *ngIf="document?.currentVersion">
         <button (click)="download(document?.currentVersion.id)" class="btn btn-primary btn-sm fa fa-download text-light"
                 aria-hidden="true"></button>
         Aktualny plik wersja z: {{document?.currentVersion.uploadedDate | date: dateFormat}}
         dodana przez: {{document?.currentVersion.uploadedBy.name}}
       </div>
+
 
       <div #openDocument *ngIf="!document?.blocked">
         <p-fileUpload #uploadComponent mode="basic" name="myfile[]" customUpload="true"
@@ -24,11 +25,13 @@
                       chooseLabel="Wybierz"
                       *ngIf="!isFileBlocked"
                       (onSelect)="onSelect($event)"></p-fileUpload>
+
         <button #cleatBtn pButton type="button" (click)="clearSelectedFile()" *ngIf="isFileUploaded"
                 icon="fa-close"></button>
 
-        <button class="btn btn-primary fa fa-lock" (click)="lockDocument()" aria-hidden="true"> Zablokuj</button>
-        <p-calendar [(ngModel)]="calendarValue" [showIcon]="true"
+
+        <button *ngIf="document?.currentVersion" class="btn btn-primary fa fa-lock" (click)="lockDocument()" aria-hidden="true"> Zablokuj</button>
+        <p-calendar *ngIf="document?.currentVersion" [(ngModel)]="calendarValue" [showIcon]="true"
                     [showTime]="true"
                     [maxDate]="calendarMaxDate"
                     [minDate]="calendarMinDate"></p-calendar>
@@ -36,12 +39,12 @@
 
       <div #blockedDocument *ngIf="document?.blocked">
         Plik jest zablokowany do dnia: {{document?.blockedToDate | date: dateFormat}}
-        przez: {{document?.blockedBy}}
-        <button class="btn btn-primary fa fa-unlock-alt" aria-hidden="true" (click)="unlockDocument()"> Odblokuj</button>
+        przez: {{document?.blockedBy.name}}
+        <button class="btn btn-primary fa fa-unlock-alt" *ngIf="canUnlock()" aria-hidden="true" (click)="unlockDocument()"> Odblokuj</button>
       </div>
 
 
-      <!--// dane historyczne-->
+      <!--historical files-->
       <div #historicalDateList>
         <li class="list-group-item" *ngFor="let file of document?.historicalFiles">
           <button (click)="download(file?.id)" class="btn btn-sm btn-primary fa fa-download text-light"

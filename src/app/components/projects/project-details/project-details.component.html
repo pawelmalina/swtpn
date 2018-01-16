@@ -44,12 +44,11 @@
         </li>
       </p-tabPanel>
       <p-tabPanel header="Użytkownicy" [selected]="true">
-        <div *ngFor="let user of project?.users">
-          <h3>{{user.name}}
-            <app-mail [mail]="user.mail"></app-mail></h3>
-        </div>
+        <li class="list-group-item"  *ngFor="let user of project?.users">
+            <div class="w-100"> {{user.name}}<app-mail [mail]="user.mail" class="float-right"></app-mail></div>
+        </li>
 
-        <button type="text" (click)="showSB()" pButton icon="fa-user-plus" *ngIf="isManager" label="Dodaj użytkowników"></button>
+        <button class="mt-2" type="text" (click)="showSB()" pButton icon="fa-user-plus" *ngIf="isManager" label="Dodaj użytkowników"></button>
       </p-tabPanel>
     </p-tabView>
   </div>

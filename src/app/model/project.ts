@@ -19,7 +19,7 @@ export class Document {
   blockedFromDate: number;
   blockedToDate: number;
   createdBy: string;
-  blockedBy: string;
+  blockedBy: NameAndId;
 
   currentVersion: UploadedFile;
   historicalFiles: UploadedFile[];

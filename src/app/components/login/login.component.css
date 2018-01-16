@@ -8,3 +8,7 @@
   width: 100px;
   height: 20px;
 }
+
+.ui-inputtext[_ngcontent-c1].email-input {
+  width: 200px;
+}

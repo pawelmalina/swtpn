@@ -68,7 +68,11 @@ export class ProjectDetailsComponent implements OnInit {
     if (this.notAssignedUsers.length > 0) {
       this.displaySidebar = true;
     } else {
-      this.messageService.add({severity: 'info', summary: 'Informacja', detail: 'Wszyscy użytkownicy są już przypisani.'});
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Informacja',
+        detail: 'Wszyscy użytkownicy są już przypisani.'
+      });
     }
   }
 
@@ -98,6 +102,10 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   addComment() {
+    if (this.newCommentText === '') {
+      return;
+    }
+
     const message = new NewMessage(1, this.project.id, this.newCommentText);
     this.projectService.addMessage(message).then(() => {
       this.newCommentText = '';

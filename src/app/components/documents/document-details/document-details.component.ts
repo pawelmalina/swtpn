@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/
 import {EndPointsSettings} from '../../../shared/end-points-settings';
 import {Constants} from '../../../model/constants';
 import {saveAs} from 'file-saver/FileSaver';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-document-details',
@@ -36,6 +37,7 @@ export class DocumentDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
+              private authService: AuthService,
               private documentService: DocumentService,
               private router: Router) {
     route.params
@@ -72,6 +74,11 @@ export class DocumentDetailsComponent implements OnInit {
       .then(() => {
         this.refresh();
       });
+  }
+
+  canUnlock(): boolean {
+    const currentId = this.authService.user.id;
+    return currentId === this.document.blockedBy.id;
   }
 
   clearSelectedFile() {

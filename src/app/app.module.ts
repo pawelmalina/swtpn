@@ -41,6 +41,7 @@ import {UserRoleGuard} from './shared/user-role-guard';
 import {MenagerRoleGuard} from './shared/menager-role-guard';
 import { MailComponent } from './components/mail/mail.component';
 import {MailService} from './services/mail/mail.service';
+import { DocumentsListComponent } from './components/documents/documents-list/documents-list.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import {MailService} from './services/mail/mail.service';
     DocumentDetailsComponent,
     LoginComponent,
     MailComponent,
+    DocumentsListComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/
 import {EndPointsSettings} from '../../shared/end-points-settings';
 import {ResponseType} from '@angular/http';
 import {toPromise} from 'rxjs/operator/toPromise';
+import {NameAndId} from '../../model/project';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable()
 export class DocumentService {
@@ -10,7 +12,8 @@ export class DocumentService {
 
   private apiUrl = EndPointsSettings.DOCUMENT;
 
-  constructor(private http: HttpClient) {
+  constructor(private authService: AuthService,
+    private http: HttpClient) {
   }
 
   getById(id: number): Promise<any> {
@@ -39,6 +42,12 @@ export class DocumentService {
     return this.http.post(url, null, {params: params})
       .toPromise()
       .catch(this.handleError);
+  }
+
+  getDocumentAssignedWithUser() {
+    const url = `${this.apiUrl}/assigned-with-user/${this.authService.user.id}`;
+
+    return this.http.get(url).toPromise().then((res) => res as NameAndId[]);
   }
 
   private handleError(error: any): Promise<any> {
