@@ -14,16 +14,25 @@
     <div>
       <div class="d-inline w-100"><span class="h4">Właścicielem dokumentu jest {{document?.createdBy}}</span>
         <div id="tool-panel" class="float-right mr-2" *ngIf="isOwner">
-        <button pButton (click)="documentUpdateDialog.show()" icon="fa-pencil"></button>
-        <app-modification-panel #documentUpdateDialog
-                                (accept)="acceptDocumentDialog($event)"
-                                [acceptButtonText]="'Zapisz'"
-                                [titleText]="'Tytuł dokumentu:'"
-                                [descriptionText]="'Opis dokumentu:'"
-                                [titleValue]="document?.title"
-                                [descriptionValue]="document?.description"
-                                [objectId]="document?.id"></app-modification-panel>
-        <button pButton icon="fa-trash" (click)="removeDocument(document?.id)"></button>
+          <button pButton (click)="documentUpdateDialog.show()" icon="fa-pencil"></button>
+          <app-modification-panel #documentUpdateDialog
+                                  (accept)="acceptDocumentDialog($event)"
+                                  [acceptButtonText]="'Zapisz'"
+                                  [titleText]="'Tytuł dokumentu:'"
+                                  [descriptionText]="'Opis dokumentu:'"
+                                  [titleValue]="document?.title"
+                                  [descriptionValue]="document?.description"
+                                  [objectId]="document?.id"></app-modification-panel>
+          <button pButton icon="fa-trash" (click)="removeDocument(document?.id)"></button>
+          <app-modification-panel #newPublicationDialog
+                                  (accept)="acceptNewPublication($event)"
+                                  [acceptButtonText]="'Wygeneruj publikacje'"
+                                  [titleText]="'Tytuł publikacji:'"
+                                  [descriptionText]="'Opis publikacji:'"
+                                  [titleValue]="document?.title"
+                                  [descriptionValue]="document?.description"
+                                  [objectId]="document?.id"></app-modification-panel>
+          <button *ngIf="isManagerOfProject && document?.currentVersion" pButton class="ui-button-danger" icon="fa-file-text" (click)="newPublicationDialog.show()"></button>
         </div>
       </div>
 
@@ -60,7 +69,7 @@
       <div #blockedDocument *ngIf="document?.blocked" class="pt-2 pb-2">
         Plik jest zablokowany do dnia: {{document?.blockedToDate | date: dateFormat}}
         przez: {{document?.blockedBy.name}}
-        <button pButton  icon="fa-unlock-alt"
+        <button pButton icon="fa-unlock-alt"
                 *ngIf="canUnlock()" aria-hidden="true" (click)="unlockDocument()"></button>
       </div>
 

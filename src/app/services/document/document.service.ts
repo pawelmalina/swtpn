@@ -74,6 +74,12 @@ export class DocumentService {
     return this.http.get(url).toPromise();
   }
 
+  checkUserIsManagerOfProject(documentId: number) {
+    const url = `${this.apiUrl}/check-user-is-manager-of-project/${documentId}`;
+
+    return this.http.get(url).toPromise();
+  }
+
   getAllMessages(projectId: number) {
     const url = `${this.apiUrl}/all-messages/${projectId}`;
 

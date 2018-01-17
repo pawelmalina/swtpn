@@ -85,6 +85,14 @@ export class UpdateObject {
     this.description = description;
   }
 }
+
+export class Publication {
+  id: number;
+  title: string;
+  description: string;
+  project: NameAndId;
+  file: NameAndId;
+}
 //
 // "id": "number",
 // "title": "string",

@@ -103,7 +103,8 @@ import { CommentsComponent } from './components/comments/comments.component';
     MailService,
     UserRoleGuard,
     MenagerRoleGuard,
-    MessageService
+    MessageService,
+    PublicationService
   ],
   bootstrap: [AppComponent]
 })

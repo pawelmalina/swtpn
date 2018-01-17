@@ -1,5 +1,15 @@
 <div class="list-group">
-  <a href="#" class="list-group-item">First item</a>
-  <a href="#" class="list-group-item">Second item</a>
-  <a href="#" class="list-group-item">Third item</a>
+  <li class="list-group-item" *ngFor="let publication of publications">
+    <div>
+      <h6>{{publication.title}}
+        <button pButton (click)="download(publication.file.id)"
+                class="ml-3 btn btn-sm btn-primary"
+                icon="fa-file" aria-hidden="true">
+        </button>
+      </h6>
+      <div class="p-2">
+        {{publication.description}}
+      </div>
+    </div>
+  </li>
 </div>

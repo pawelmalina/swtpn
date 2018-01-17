@@ -9,6 +9,7 @@ import {saveAs} from 'file-saver/FileSaver';
 import {AuthService} from '../../../services/auth/auth.service';
 import {MessageService} from 'primeng/components/common/messageservice';
 import {isNumber} from 'util';
+import {PublicationService} from '../../../services/publication/publication.service';
 
 @Component({
   selector: 'app-document-details',
@@ -24,6 +25,7 @@ export class DocumentDetailsComponent implements OnInit {
   document: Document;
   documentId: number;
   isOwner: boolean = false;
+  isManagerOfProject: boolean = false;
 
   private uploadUrl = EndPointsSettings.UPLOAD;
   private downloadUrl = EndPointsSettings.DOWNLOAD;
@@ -46,6 +48,7 @@ export class DocumentDetailsComponent implements OnInit {
               private http: HttpClient,
               private authService: AuthService,
               private documentService: DocumentService,
+              private publicationService: PublicationService,
               private messageService: MessageService,
               private router: Router) {
     route.params
@@ -75,6 +78,7 @@ export class DocumentDetailsComponent implements OnInit {
     this.documentService.getById(this.documentId).then((response) => {
       this.document = response;
       this.checkUserIsOwner();
+      this.checkUserIsManagerOfProject();
     });
   }
 
@@ -86,7 +90,6 @@ export class DocumentDetailsComponent implements OnInit {
   }
 
   addComment(text: string) {
-    debugger;
     if (text === '') {
       return;
     }
@@ -124,14 +127,16 @@ export class DocumentDetailsComponent implements OnInit {
 
   acceptDocumentDialog(document: UpdateObject) {
     this.documentService.update(document).then(() => {
-      // this.messageService.add({
-      //   severity: 'info',
-      //   summary: 'Document',
-      //   detail: 'Pomyślnie zaktualizowano dokument'
-      // });
       this.refresh();
     });
   }
+
+  acceptNewPublication(document: UpdateObject) {
+    this.publicationService.new(document).then(() => {
+      this.router.navigate(['/publication']);
+    });
+  }
+
 
   removeDocument(documentId: number) {
     this.documentService.remove(documentId).then((res) => {
@@ -150,6 +155,14 @@ export class DocumentDetailsComponent implements OnInit {
     this.documentService.checkUserIsOwner(this.documentId)
       .then((res) => {
         this.isOwner = res as boolean;
+      });
+  }
+
+  checkUserIsManagerOfProject() {
+    this.documentService.checkUserIsManagerOfProject(this.documentId)
+      .then((res) => {
+      debugger;
+        this.isManagerOfProject = res as boolean;
       });
   }
 

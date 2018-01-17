@@ -1,18 +1,7 @@
-span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left{
-  overflow: visible !important;
-}
 
-p-fileUpload {
 
-}
-
-.ui-fileupload-choose.ui-button, .ui-fileupload-choose.ui-button .ui-widget, .ui-fileupload-choose.ui-button .ui-state-default {
-  background-color: #d81344;
-  border: 1px solid #0275d8;
-  color: #ffffff;
-}
-
-.ui-fileupload-choose.ui-button.ui-state-hover, .ui-fileupload-choose.ui-button.ui-state-focus, .ui-fileupload-choose.ui-button.ui-state-active {
-  background-color: #a52411;
-  border-color: #01549b;
+.generation-btn {
+  /*position: fixed;*/
+  bottom: 10px;
+  right: 10px;
 }

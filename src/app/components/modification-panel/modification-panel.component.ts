@@ -32,6 +32,11 @@ export class ModificationPanelComponent implements OnInit {
   @Input()
   acceptButtonText: string;
 
+  @Input()
+  fileId: number;
+
+
+
   constructor() {
   }
 
