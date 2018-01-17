@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectService} from '../../../services/project/project.service';
-import {Project, Message, NewMessage} from '../../../model/project';
+import {Project, Message, NewMessage, UpdateObject} from '../../../model/project';
 import {Constants} from '../../../model/constants';
 import {UserService} from '../../../services/user/user.service';
 import {NameAndId} from '../../../model/user';
 import {AuthService} from '../../../services/auth/auth.service';
 import {MessageService} from 'primeng/components/common/messageservice';
+import {ModificationPanelComponent} from '../../modification-panel/modification-panel.component';
+import {DocumentService} from '../../../services/document/document.service';
 
 @Component({
   selector: 'app-project-details',
@@ -27,9 +29,13 @@ export class ProjectDetailsComponent implements OnInit {
   notAssignedUsers: NameAndId[];
   isManager: boolean = false;
 
+  displayAddDocumentDialog: boolean = false;
+  @ViewChild('documentDialog') documentDialog: ModificationPanelComponent;
+
   constructor(private state: AuthService,
               private route: ActivatedRoute,
               private projectService: ProjectService,
+              private documentService: DocumentService,
               private userService: UserService,
               private messageService: MessageService,
               private router: Router) {
@@ -64,6 +70,58 @@ export class ProjectDetailsComponent implements OnInit {
       });
   }
 
+  ngOnInit() {
+  }
+
+  acceptDocumentDialog(document: UpdateObject) {
+    this.documentService.addDocument(document, this.projectId).then(() => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Document',
+        detail: 'Pomyślnie dodano document'
+      });
+      this.refresh();
+    });
+  }
+
+  acceptProjectDialog(project: UpdateObject) {
+    this.projectService.update(project).then(() => {
+
+      this.refresh();
+    });
+  }
+
+  remove(projectId: number) {
+    this.projectService.remove(projectId)
+      .then((res) => {
+        this.router.navigate(['/projects']);
+      });
+  }
+
+  removeUser(userId: number){
+    this.projectService.removeUser(this.projectId ,userId)
+      .then(() => {
+        this.refresh();
+      });
+  }
+
+  loadMessages() {
+    this.projectService.getAllMessages(this.project.id)
+      .then((messages) => {
+        this.messages = messages;
+      });
+  }
+
+  addComment(text: string) {
+    if (text === '') {
+      return;
+    }
+    const message = new NewMessage(1, this.project.id, text);
+    this.projectService.addMessage(message).then(() => {
+      this.loadMessages();
+    });
+  }
+
   showSB() {
     if (this.notAssignedUsers.length > 0) {
       this.displaySidebar = true;
@@ -89,32 +147,6 @@ export class ProjectDetailsComponent implements OnInit {
   closeSB() {
     this.displaySidebar = false;
     this.selectedUsers = [];
-  }
-
-  ngOnInit() {
-  }
-
-  loadMessages() {
-    this.projectService.getAllMessages(this.project.id)
-      .then((messages) => {
-        this.messages = messages;
-      });
-  }
-
-  addComment() {
-    if (this.newCommentText === '') {
-      return;
-    }
-
-    const message = new NewMessage(1, this.project.id, this.newCommentText);
-    this.projectService.addMessage(message).then(() => {
-      this.newCommentText = '';
-      this.loadMessages();
-    });
-  }
-
-  goBack() {
-    // this.router.navigate(['/items']);
   }
 
 }

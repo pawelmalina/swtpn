@@ -1,0 +1,28 @@
+<div>
+  <p-dataList [value]="messages" [immutable]="false" [scrollable]="true" scrollHeight="250px">
+    <p-header>Komentarze</p-header>
+    <ng-template let-message let-i="index" pTemplate="item">
+      <div [ngClass]="{'bg-gray': i % 2 === 1}">
+        <div class="ui-g ui-fluid ">
+          <div class="ui-g-6">
+            <h6>{{message.userName}}</h6>
+          </div>
+          <div class="ui-g-6">
+            <h6 class="float-right">{{message.date | date: dateFormat}}</h6>
+          </div>
+        </div>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12">
+            <pre class="dataGridContentRow">{{message.content}}</pre>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataList>
+</div>
+<div class="commentary-field">
+      <textarea class="newComment" pInputTextarea width="100%" [(ngModel)]="newCommentText"
+                placeholder="Komentarz..."></textarea>
+  <button class="float-right ui-button-secondary" (click)="addComment()" pButton type="button"
+          label="Dodaj komentarz"></button>
+</div>

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Document} from '../../../model/project';
+import {Document, Message, NewMessage, UpdateObject} from '../../../model/project';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentService} from '../../../services/document/document.service';
 import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
@@ -7,6 +7,8 @@ import {EndPointsSettings} from '../../../shared/end-points-settings';
 import {Constants} from '../../../model/constants';
 import {saveAs} from 'file-saver/FileSaver';
 import {AuthService} from '../../../services/auth/auth.service';
+import {MessageService} from 'primeng/components/common/messageservice';
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-document-details',
@@ -17,8 +19,11 @@ export class DocumentDetailsComponent implements OnInit {
 
   dateFormat: string = Constants.FILE_DATE_FORMAT;
 
+  messages: Message[];
+
   document: Document;
   documentId: number;
+  isOwner: boolean = false;
 
   private uploadUrl = EndPointsSettings.UPLOAD;
   private downloadUrl = EndPointsSettings.DOWNLOAD;
@@ -33,12 +38,15 @@ export class DocumentDetailsComponent implements OnInit {
   calendarMinDate: Date = this.initialDate(new Date());
   calendarMaxDate: Date = this.initialDate(new Date(), 14);
 
+
+
   @ViewChild('uploadComponent') uploadComponent;
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private authService: AuthService,
               private documentService: DocumentService,
+              private messageService: MessageService,
               private router: Router) {
     route.params
       .subscribe(
@@ -66,6 +74,7 @@ export class DocumentDetailsComponent implements OnInit {
   refresh() {
     this.documentService.getById(this.documentId).then((response) => {
       this.document = response;
+      this.checkUserIsOwner();
     });
   }
 
@@ -75,6 +84,25 @@ export class DocumentDetailsComponent implements OnInit {
         this.refresh();
       });
   }
+
+  addComment(text: string) {
+    debugger;
+    if (text === '') {
+      return;
+    }
+    const message = new NewMessage(1, this.document.id, text);
+    this.documentService.addMessage(message).then(() => {
+      this.loadMessages();
+    });
+  }
+
+  loadMessages() {
+    this.documentService.getAllMessages(this.document.id)
+      .then((messages) => {
+        this.messages = messages;
+      });
+  }
+
 
   canUnlock(): boolean {
     const currentId = this.authService.user.id;
@@ -94,6 +122,36 @@ export class DocumentDetailsComponent implements OnInit {
     window.open(this.downloadUrl + fileId);
   }
 
+  acceptDocumentDialog(document: UpdateObject) {
+    this.documentService.update(document).then(() => {
+      // this.messageService.add({
+      //   severity: 'info',
+      //   summary: 'Document',
+      //   detail: 'Pomyślnie zaktualizowano dokument'
+      // });
+      this.refresh();
+    });
+  }
+
+  removeDocument(documentId: number) {
+    this.documentService.remove(documentId).then((res) => {
+      if (res === true) {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Document',
+          detail: 'Pomyślnie usunięto document'
+        });
+        this.router.navigate(['/documents']);
+      }
+    });
+  }
+
+  checkUserIsOwner() {
+    this.documentService.checkUserIsOwner(this.documentId)
+      .then((res) => {
+        this.isOwner = res as boolean;
+      });
+  }
 
   onUpload(event) {
     const files = event.files;

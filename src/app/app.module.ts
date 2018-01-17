@@ -42,6 +42,8 @@ import {MenagerRoleGuard} from './shared/menager-role-guard';
 import { MailComponent } from './components/mail/mail.component';
 import {MailService} from './services/mail/mail.service';
 import { DocumentsListComponent } from './components/documents/documents-list/documents-list.component';
+import { ModificationPanelComponent } from './components/modification-panel/modification-panel.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import { DocumentsListComponent } from './components/documents/documents-list/do
     LoginComponent,
     MailComponent,
     DocumentsListComponent,
+    ModificationPanelComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,

@@ -68,7 +68,7 @@ export class AuthService {
       .then(response => {
         this.user = response as User;
         this.isLogged = true;
-        if (this.user.role === Role.MENAGER) {
+        if (this.user.role.toString() === "MENAGER") {
           this.isManager = true;
         }
       }).catch(this.handleError);

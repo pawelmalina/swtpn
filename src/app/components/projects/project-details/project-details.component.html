@@ -1,65 +1,73 @@
-<div class="d-inline-block w-100 p-3"><span class="h2">{{project?.title}}</span><span class="h3 float-right">Kierownikiem projektu jest {{project?.projectMenager.name}}</span></div>
 <div class="ui-g">
   <div class="ui-g-7">
     <p-panel header="{{project?.name}}" [toggleable]="true" [collapsed]="true">
-      {{project?.description}}
+      <p>
+        Projekt utworzony przez: <b>{{project?.projectMenager.name}}</b>
+      </p>
+      <p>
+        <b>Opis dokumentu: </b>{{project?.description}}
+      </p>
     </p-panel>
 
-    <div>
-      <p-dataList [value]="messages" [immutable]="false" [scrollable]="true" scrollHeight="250px">
-        <p-header>Komentarze</p-header>
-        <ng-template let-message let-i="index" pTemplate="item">
-          <div [ngClass]="{'bg-gray': i % 2 === 1}" >
-            <div class="ui-g ui-fluid ">
-              <div class="ui-g-6">
-                <h6>{{message.userName}}</h6>
-              </div>
-              <div class="ui-g-6">
-                <h6 class="float-right">{{message.date | date: dateFormat}}</h6>
-              </div>
-            </div>
-            <div class="ui-g ui-fluid">
-              <div class="ui-g-12">
-                <pre class="dataGridContentRow">{{message.content}}</pre>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </p-dataList>
-    </div>
-    <div class="commentary-field">
-      <textarea class="newComment" pInputTextarea width="100%" [(ngModel)]="newCommentText" placeholder="Komentarz..." ></textarea>
-      <button class="float-right ui-button-secondary" (click)="addComment()" pButton type="button" label="Dodaj komentarz"></button>
-    </div>
+    <app-comments [messages]="messages" (addCommentEmitter)="addComment($event)" ></app-comments>
   </div>
 
   <div class="ui-g-5">
+    <div class="d-inline w-100"><span class="h5">Kierownikiem projektu jest {{project?.projectMenager.name}}</span>
+      <div id="tool-panel" class="float-right mr-2" *ngIf="isManager">
+        <button pButton (click)="projectUpdateDialog.show()" icon="fa-pencil"></button>
+        <app-modification-panel #projectUpdateDialog
+                                (accept)="acceptProjectDialog($event)"
+                                [acceptButtonText]="'Zapisz'"
+                                [titleText]="'Tytuł projektu:'"
+                                [descriptionText]="'Opis projektu:'"
+                                [titleValue]="project?.name"
+                                [descriptionValue]="project?.description"
+                                [objectId]="project?.id"></app-modification-panel>
+        <button pButton icon="fa-trash" (click)="remove(project?.id)"></button>
+      </div>
+    </div>
     <p-tabView>
       <p-tabPanel header="Zadania">
-
       </p-tabPanel>
-      <p-tabPanel header="Dokumenty">
+
+      <p-tabPanel header="Dokumenty" [selected]="true">
         <li class="list-group-item" *ngFor="let document of project?.documents">
           <a href="/document-details/{{document.id}}">{{document.name}}</a>
         </li>
+        <button class="mt-2" type="text" (click)="documentDialog.show()" pButton icon="fa-file"
+                label="Dodaj dokument"></button>
+        <app-modification-panel #documentDialog
+                                (accept)="acceptDocumentDialog($event)"
+                                [acceptButtonText]="'Dodaj'"
+                                [titleText]="'Tytuł dokumentu:'"
+                                [descriptionText]="'Opis dokumentu:'"
+        ></app-modification-panel>
       </p-tabPanel>
-      <p-tabPanel header="Użytkownicy" [selected]="true">
-        <li class="list-group-item"  *ngFor="let user of project?.users">
-            <div class="w-100"> {{user.name}}<app-mail [mail]="user.mail" class="float-right"></app-mail></div>
+
+      <p-tabPanel header="Użytkownicy">
+        <li class="list-group-item" *ngFor="let user of project?.users">
+          <div class="w-100"> {{user.name}}
+            <app-mail [mail]="user.mail" class="float-right mr-1"></app-mail>
+            <div *ngIf="isManager" style="font-size: 25px" (click)="removeUser(user.id)" class="fa fa-user-times text-info float-right mr-2" aria-hidden="true"></div>
+          </div>
         </li>
 
-        <button class="mt-2" type="text" (click)="showSB()" pButton icon="fa-user-plus" *ngIf="isManager" label="Dodaj użytkowników"></button>
+        <button class="mt-2" type="text" (click)="showSB()" pButton icon="fa-user-plus" *ngIf="isManager"
+                label="Dodaj użytkowników"></button>
       </p-tabPanel>
     </p-tabView>
   </div>
 
   <p-sidebar [(visible)]="displaySidebar">
     <span class="h5">Proszę wybrać użytkowników</span>
-    <li class="list-group-item" *ngFor="let user of notAssignedUsers">
-      <p-checkbox name="groupname" value="{{user.id}}" label="{{user.name}}" [(ngModel)]="selectedUsers"></p-checkbox>
-    </li>
+    <div class="mt-2 mb-2">
+      <li class="list-group-item" *ngFor="let user of notAssignedUsers">
+        <p-checkbox name="groupname" value="{{user.id}}" label="{{user.name}}" [(ngModel)]="selectedUsers"></p-checkbox>
+      </li>
+    </div>
 
-    <div class="d-inline-block">
+    <div class="d-inline-block pt-2">
       <button class="ui-button-success"
               type="button" pButton type="button"
               icon="fa-check" iconPos="left"

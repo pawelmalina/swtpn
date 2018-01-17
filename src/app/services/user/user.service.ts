@@ -28,7 +28,7 @@ export class UserService {
       });
   }
 
-  checkUserIsProjectManager(projectId: number){
+  checkUserIsProjectManager(projectId: number) {
     const url = `${this.userUrl}/user-is-manager-of-that-project/${projectId}`;
     return this.http.get(url).toPromise();
   }

@@ -1,0 +1,15 @@
+<p-dialog [(visible)]="displayDialog" [closable]="false" [showHeader]="false" >
+
+  <div class="container">
+    <form >
+      <label for="title">{{titleText}}</label>
+      <input class="form-control" type="text" [(ngModel)]="titleValue" id="title" name="title">
+
+      <label for="description">{{descriptionText}}</label>
+      <textarea id="description" name="description" [(ngModel)]="descriptionValue" style="height:200px"></textarea>
+
+      <input type="submit" (click)="acceptAction()" value="{{acceptButtonText}}">
+      <input type="submit" (click)="abort()" style="background-color: darkred" value="Cofnij">
+    </form>
+  </div>
+</p-dialog>

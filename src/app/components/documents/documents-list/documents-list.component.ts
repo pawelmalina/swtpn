@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NameAndId} from '../../../model/project';
+import {DocumentShort, NameAndId} from '../../../model/project';
 import {DocumentService} from '../../../services/document/document.service';
 
 @Component({
@@ -9,11 +9,11 @@ import {DocumentService} from '../../../services/document/document.service';
 })
 export class DocumentsListComponent implements OnInit {
 
-  documentsNames: NameAndId[];
+  documentsNames: DocumentShort[];
 
   constructor(private documentService: DocumentService) {
     this.documentService.getDocumentAssignedWithUser().then((documents) => {
-      this.documentsNames = documents;
+      this.documentsNames = documents as DocumentShort[];
     });
   }
 

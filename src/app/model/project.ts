@@ -20,6 +20,7 @@ export class Document {
   blockedToDate: number;
   createdBy: string;
   blockedBy: NameAndId;
+  project: NameAndId;
 
   currentVersion: UploadedFile;
   historicalFiles: UploadedFile[];
@@ -34,6 +35,13 @@ export class UploadedFile {
 export class ProjectsNames {
   id: number;
   name: string;
+}
+
+export class DocumentShort {
+  id: number;
+  title: string;
+  project: NameAndId;
+
 }
 
 export class NameAndId {
@@ -65,4 +73,20 @@ export class NewMessage {
     this.content = content;
   }
 }
+
+export class UpdateObject {
+  id: number;
+  title: string;
+  description: string;
+
+  constructor(id: number, title: string, description: string) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+  }
+}
+//
+// "id": "number",
+// "title": "string",
+// "description": "string"
 

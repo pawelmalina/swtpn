@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {EndPointsSettings} from '../../shared/end-points-settings';
-import {Message, NewMessage, Project, ProjectsNames} from '../../model/project';
+import {Message, NewMessage, Project, ProjectsNames, UpdateObject} from '../../model/project';
 import {Response} from '../../model/response';
 import {HttpClient} from '@angular/common/http';
 
@@ -54,26 +54,34 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  add(project: Project): Promise<any> {
-    return this.http.post(this.apiUrl, project)
+  add(project: UpdateObject) {
+    const url = `${this.apiUrl}/add`;
+
+    return this.http.post(url, project)
       .toPromise()
-      .then(response => response as Project)
+      .then(res => res as boolean)
       .catch(this.handleError);
   }
 
   remove(id: number) {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete(url)
+    const url = `${this.apiUrl}/remove/${id}`;
+    return this.http.post(url, null)
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
   }
 
-  update(project: Project): Promise<any> {
-    const url = `${this.apiUrl}/${project.id}`;
+  removeUser(projectId: number, userId: number) {
+    const url = `${this.apiUrl}/remove-users-from-project/${projectId}`;
 
-    return this.http.put(url, project)
-      .toPromise().then(() => project)
+    return this.http.post(url, userId).toPromise();
+  }
+
+  update(project: UpdateObject) {
+    const url = `${this.apiUrl}/update-project/`;
+
+    return this.http.post(url, project)
+      .toPromise()
       .catch(this.handleError);
   }
 

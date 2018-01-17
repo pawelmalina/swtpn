@@ -1,6 +1,9 @@
 <div class="list-group">
-  <li class="list-group-item" *ngFor="let project of documentsNames">
-    <a href="/document-details/{{project.id}}">{{project.name}}</a>
-  </li>
-
+  <div class="list-group-item space" *ngFor="let document of documentsNames">
+      <span><a href="/document-details/{{document.id}}">{{document.title}}</a></span>
+      <span><a
+        href="/project-details/{{document.project.id}}">{{document.project.name}}</a>
+      </span>
+  </div>
 </div>
+

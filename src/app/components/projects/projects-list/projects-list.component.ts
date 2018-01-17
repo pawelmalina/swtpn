@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProjectsNames} from '../../../model/project';
+import {ProjectsNames, UpdateObject} from '../../../model/project';
 import {ProjectService} from '../../../services/project/project.service';
+import {AuthService} from '../../../services/auth/auth.service';
+import {Role} from '../../../model/user';
 
 @Component({
   selector: 'app-projects-list',
@@ -11,13 +13,28 @@ export class ProjectsListComponent implements OnInit {
 
   @Input() projectsNames: ProjectsNames[];
 
-  constructor(private projectService: ProjectService) {
+  isManager: boolean = false;
 
-    projectService.getProjectNames().then((resp) => {
+  constructor(public authService: AuthService,
+              private projectService: ProjectService) {
+
+    this.refresh();
+  }
+
+  private refresh() {
+      this.projectService.getProjectNames().then((resp) => {
       this.projectsNames = resp;
+      this.isManager = this.authService.isManager;
     });
   }
 
+
   ngOnInit() {
+  }
+
+  acceptProjectDialog(updateObject: UpdateObject) {
+    this.projectService.add(updateObject).then((res) => {
+      this.refresh();
+    });
   }
 }

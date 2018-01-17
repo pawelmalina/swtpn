@@ -1,55 +1,78 @@
 <div class="ui-g">
   <div class="ui-g-5">
-    <p-panel header="{{document?.title}}" [toggleable]="true" [collapsed]="false">
+    <p-panel header="{{document?.title}}" [toggleable]="true" [collapsed]="true">
       <p>
         Document utworzony przez: <b>{{document?.createdBy}}</b>
       </p>
       <p>
-        Opis dokumentu: {{document?.description}}
+        <b>Opis dokumentu: </b>{{document?.description}}
       </p>
     </p-panel>
+    <app-comments [messages]="messages" (addCommentEmitter)="addComment($event)"></app-comments>
   </div>
   <div class="ui-g-7">
     <div>
-      <div *ngIf="document?.currentVersion">
-        <button (click)="download(document?.currentVersion.id)" class="btn btn-primary btn-sm fa fa-download text-light"
+      <div class="d-inline w-100"><span class="h4">Właścicielem dokumentu jest {{document?.createdBy}}</span>
+        <div id="tool-panel" class="float-right mr-2" *ngIf="isOwner">
+        <button pButton (click)="documentUpdateDialog.show()" icon="fa-pencil"></button>
+        <app-modification-panel #documentUpdateDialog
+                                (accept)="acceptDocumentDialog($event)"
+                                [acceptButtonText]="'Zapisz'"
+                                [titleText]="'Tytuł dokumentu:'"
+                                [descriptionText]="'Opis dokumentu:'"
+                                [titleValue]="document?.title"
+                                [descriptionValue]="document?.description"
+                                [objectId]="document?.id"></app-modification-panel>
+        <button pButton icon="fa-trash" (click)="removeDocument(document?.id)"></button>
+        </div>
+      </div>
+
+      <div *ngIf="document?.currentVersion" class="pb-2 pt-2">
+        <button pButton icon="fa-download" (click)="download(document?.currentVersion.id)" class="btn btn-primary"
                 aria-hidden="true"></button>
-        Aktualny plik wersja z: {{document?.currentVersion.uploadedDate | date: dateFormat}}
+        Aktualny plik to wersja z: {{document?.currentVersion.uploadedDate | date: dateFormat}}
         dodana przez: {{document?.currentVersion.uploadedBy.name}}
       </div>
 
 
-      <div #openDocument *ngIf="!document?.blocked">
-        <p-fileUpload #uploadComponent mode="basic" name="myfile[]" customUpload="true"
-                      (uploadHandler)="onUpload($event)"
-                      chooseLabel="Wybierz"
-                      *ngIf="!isFileBlocked"
-                      (onSelect)="onSelect($event)"></p-fileUpload>
+      <div #openDocument *ngIf="!document?.blocked" class="pt-2 pb-2">
 
-        <button #cleatBtn pButton type="button" (click)="clearSelectedFile()" *ngIf="isFileUploaded"
-                icon="fa-close"></button>
+        <div class="pb-2 pt-2">
+          <p-fileUpload id="file-upload" #uploadComponent mode="basic" name="myfile[]" customUpload="false"
+                        (uploadHandler)="onUpload($event)"
+                        mode="advanced"
+                        chooseLabel="Wybierz"
+                        uploadLabel="Dodaj"
+                        cancelLabel="Usuń"
+                        showCancelButton="true"
+                        *ngIf="!isFileBlocked"
+                        (onSelect)="onSelect($event)"></p-fileUpload>
+        </div>
 
-
-        <button *ngIf="document?.currentVersion" class="btn btn-primary fa fa-lock" (click)="lockDocument()" aria-hidden="true"> Zablokuj</button>
+        <button *ngIf="document?.currentVersion" icon="fa-lock" pButton class="btn btn-primary" (click)="lockDocument()"
+                aria-hidden="true"></button>
         <p-calendar *ngIf="document?.currentVersion" [(ngModel)]="calendarValue" [showIcon]="true"
                     [showTime]="true"
                     [maxDate]="calendarMaxDate"
                     [minDate]="calendarMinDate"></p-calendar>
       </div>
 
-      <div #blockedDocument *ngIf="document?.blocked">
+      <div #blockedDocument *ngIf="document?.blocked" class="pt-2 pb-2">
         Plik jest zablokowany do dnia: {{document?.blockedToDate | date: dateFormat}}
         przez: {{document?.blockedBy.name}}
-        <button class="btn btn-primary fa fa-unlock-alt" *ngIf="canUnlock()" aria-hidden="true" (click)="unlockDocument()"> Odblokuj</button>
+        <button pButton  icon="fa-unlock-alt"
+                *ngIf="canUnlock()" aria-hidden="true" (click)="unlockDocument()"></button>
       </div>
 
 
       <!--historical files-->
       <div #historicalDateList>
         <li class="list-group-item" *ngFor="let file of document?.historicalFiles">
-          <button (click)="download(file?.id)" class="btn btn-sm btn-primary fa fa-download text-light"
+          <button pButton (click)="download(file?.id)" class="btn btn-sm btn-primary" icon="fa-download"
                   aria-hidden="true"></button>
-          Wersja z: {{file?.uploadedDate | date: dateFormat}} | dodana przez: {{file.uploadedBy.name}}
+          <div class="ml-2">Wersja z: {{file?.uploadedDate | date: dateFormat}} | dodana przez:
+            {{file.uploadedBy.name}}
+          </div>
         </li>
 
       </div>

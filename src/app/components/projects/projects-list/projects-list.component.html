@@ -4,3 +4,10 @@
   </li>
 
 </div>
+<button *ngIf="isManager" (click)="newProjecPanel.show()" class="m-3" label="Dodaj projekt" pButton icon="fa-plus-square"></button>
+<app-modification-panel #newProjecPanel
+                        (accept)="acceptProjectDialog($event)"
+                        [acceptButtonText]="'Dodaj'"
+                        [titleText]="'Tytuł projektu:'"
+                        [descriptionText]="'Opis projektu:'">
+</app-modification-panel>
