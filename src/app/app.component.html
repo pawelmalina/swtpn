@@ -1,7 +1,6 @@
 <nav style="" class="nav nav-pills navbar-light bg-light" #zm>
   <a routerLink="publications"  class="nav-item nav-link">Publikacje</a>
   <a [ngClass]="{disabled:!state?.isLogged}" routerLink="projects"  class="nav-item nav-link">Projekty</a>
-  <a [ngClass]="{disabled:!state?.isLogged}" routerLink="tasks"  class="nav-item nav-link">Zadania</a>
   <a [ngClass]="{disabled:!state?.isLogged}" routerLink="documents"  class="nav-item nav-link">Dokumenty</a>
 
   <div class="login-container"><app-login class="login-component"></app-login></div>

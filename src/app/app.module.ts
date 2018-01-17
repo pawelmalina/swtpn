@@ -10,7 +10,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {PublicationsComponent} from './components/publications/publications.component';
 import {ProjectsComponent} from './components/projects/projects.component';
 import {FilesComponent} from './components/documents/documents.component';
-import {TasksComponent} from './components/tasks/tasks.component';
 import {PublicationService} from './services/publication/publication.service';
 import {UserService} from './services/user/user.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -52,7 +51,6 @@ import { CommentsComponent } from './components/comments/comments.component';
     PublicationsComponent,
     ProjectsComponent,
     FilesComponent,
-    TasksComponent,
     PublicationsListComponent,
     ProjectsListComponent,
     ProjectDetailsComponent,

@@ -28,9 +28,6 @@
       </div>
     </div>
     <p-tabView>
-      <p-tabPanel header="Zadania">
-      </p-tabPanel>
-
       <p-tabPanel header="Dokumenty" [selected]="true">
         <li class="list-group-item" *ngFor="let document of project?.documents">
           <a href="/document-details/{{document.id}}">{{document.name}}</a>
@@ -38,7 +35,7 @@
         <button class="mt-2" type="text" (click)="documentDialog.show()" pButton icon="fa-file"
                 label="Dodaj dokument"></button>
         <app-modification-panel #documentDialog
-                                (accept)="acceptDocumentDialog($event)"
+                                (accept)="acceptDocumentDialog($event)"gi
                                 [acceptButtonText]="'Dodaj'"
                                 [titleText]="'Tytuł dokumentu:'"
                                 [descriptionText]="'Opis dokumentu:'"
