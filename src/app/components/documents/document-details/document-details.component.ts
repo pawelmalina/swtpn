@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Document, Message, NewMessage, UpdateObject} from '../../../model/project';
-import {ActivatedRoute, Router} from '@angular/router';
-import {DocumentService} from '../../../services/document/document.service';
-import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
-import {EndPointsSettings} from '../../../shared/end-points-settings';
-import {Constants} from '../../../model/constants';
-import {saveAs} from 'file-saver/FileSaver';
-import {AuthService} from '../../../services/auth/auth.service';
-import {MessageService} from 'primeng/components/common/messageservice';
-import {isNumber} from 'util';
-import {PublicationService} from '../../../services/publication/publication.service';
+import {Component, OnInit, ViewChild} from "@angular/core";
+import {Document, Message, NewMessage, UpdateObject} from "../../../model/project";
+import {ActivatedRoute, Router} from "@angular/router";
+import {DocumentService} from "../../../services/document/document.service";
+import {HttpClient, HttpParams, HttpRequest} from "@angular/common/http";
+import {EndPointsSettings} from "../../../shared/end-points-settings";
+import {Constants} from "../../../model/constants";
+import {saveAs} from "file-saver/FileSaver";
+import {AuthService} from "../../../services/auth/auth.service";
+import {MessageService} from "primeng/components/common/messageservice";
+import {isNumber} from "util";
+import {PublicationService} from "../../../services/publication/publication.service";
 
 @Component({
   selector: 'app-document-details',
